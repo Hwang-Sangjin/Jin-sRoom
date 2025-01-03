@@ -10,13 +10,13 @@ export const Experience = () => {
   return (
     <>
       <ambientLight intensity={3} />
-      <OrbitControls enableZoom={false} />
+      <OrbitControls
+        enableZoom={false}
+        enablePan={false}
+        enableRotate={false}
+      />
       <ScrollControls pages={pages} damping={0.1}>
-        <ScrollManager
-          pages={pages}
-          section={section}
-          onSectionChange={setSection}
-        />
+        <ScrollManager />
         <Office />
       </ScrollControls>
     </>

@@ -1,10 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Drawer from "react-bottom-drawer";
 import { BiSolidMusic } from "react-icons/bi";
+import { BiHome } from "react-icons/bi";
+import { BiCar } from "react-icons/bi";
+import { BiCameraMovie } from "react-icons/bi";
 import { FaPlay } from "react-icons/fa";
 import { FaFastForward } from "react-icons/fa";
 import { FaFastBackward } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
+import { sectionState } from "../recoil/sectionState";
+import { useRecoilState } from "recoil";
 
 const AudioPlayer = ({
   playMusic,
@@ -23,15 +28,33 @@ const AudioPlayer = ({
 
   const openDrawer = useCallback(() => setIsUp(true), []);
   const closeDrawer = useCallback(() => setIsUp(false), []);
+  const [section, setSection] = useRecoilState(sectionState);
 
   return (
     <>
-      <button
-        onClick={openDrawer}
-        className="absolute bottom-56 right-5 btn btn-light px-4 py-2"
-      >
-        <BiSolidMusic size={40} />
-      </button>
+      <div className="absolute bottom-56 right-5 ">
+        <button
+          onClick={() => setSection(0)}
+          className=" btn btn-light px-4 py-2"
+        >
+          <BiHome size={40} />
+        </button>
+        <button
+          onClick={() => setSection(1)}
+          className=" btn btn-light px-4 py-2"
+        >
+          <BiCar size={40} />
+        </button>
+        <button
+          onClick={() => setSection(2)}
+          className=" btn btn-light px-4 py-2"
+        >
+          <BiCameraMovie size={40} />
+        </button>
+        <button onClick={openDrawer} className=" btn btn-light px-4 py-2">
+          <BiSolidMusic size={40} />
+        </button>
+      </div>
       <Drawer
         className="drawer"
         duration={250}
