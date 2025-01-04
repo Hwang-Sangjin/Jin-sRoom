@@ -6,8 +6,8 @@ const FiberContainer = () => {
   return (
     <Canvas
       camera={{
-        fov: 64,
-        position: [2.3, 1.5, 2.3],
+        fov: 35,
+        position: [13, 7, -13],
       }}
     >
       <Experience />
