@@ -2,8 +2,8 @@ import { OrbitControls, ScrollControls } from "@react-three/drei";
 import { Office } from "./Office";
 import { useState } from "react";
 import { ScrollManager } from "./ScrollManager";
-import { Floor } from "./Room/Floor";
-import { Wall } from "./Room/Wall";
+
+import Room from "./Room/Room";
 
 export const Experience = () => {
   const [section, setSection] = useState(0);
@@ -19,8 +19,7 @@ export const Experience = () => {
       />
       <ScrollControls pages={pages} damping={0.1}>
         <ScrollManager />
-        <Floor />
-        <Wall />
+        <Room />
         {/* <Office /> */}
       </ScrollControls>
     </>
