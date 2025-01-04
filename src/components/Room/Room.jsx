@@ -4,6 +4,7 @@ import gsap from "gsap";
 import React, { useLayoutEffect, useRef } from "react";
 import RoomBase from "./RoomBase/RoomBase";
 import RoomCamping from "./RoomCamping/RoomCamping";
+import RoomWall from "./RoomWall/RoomWall";
 
 export const FLOOR_HEIGHT = 2.3;
 export const NB_FLOORS = 3;
@@ -20,8 +21,6 @@ const Room = () => {
 
   useLayoutEffect(() => {
     tl.current = gsap.timeline();
-
-    console.log(tl.current);
 
     // VERTICAL ANIMATION
     tl.current.to(
@@ -70,6 +69,7 @@ const Room = () => {
     <group ref={ref}>
       <RoomBase />
       <RoomCamping />
+      <RoomWall />
     </group>
   );
 };

@@ -9,6 +9,8 @@ export function Floor(props) {
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
+  bakedTexture.minFilter = THREE.LinearFilter;
+  bakedTexture.magFilter = THREE.NearestFilter;
 
   return (
     <group {...props} dispose={null}>

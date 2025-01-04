@@ -9,6 +9,8 @@ export function Wall(props) {
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
+  bakedTexture.minFilter = THREE.LinearFilter;
+  bakedTexture.magFilter = THREE.NearestFilter;
   return (
     <group {...props} dispose={null}>
       <mesh

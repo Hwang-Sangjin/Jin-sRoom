@@ -1,10 +1,11 @@
 import * as THREE from "three";
 import React, { useRef } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
-import BaseTexture from "&/Room/camping2.jpg";
+import BaseTexture from "&/Room/wallStand.jpg";
 
-export function Carpet(props) {
-  const { nodes, materials } = useGLTF("/camping2.glb");
+export function WallStand(props) {
+  const { nodes, materials } = useGLTF("/wallStand.glb");
+
   const bakedTexture = useTexture(BaseTexture);
 
   bakedTexture.flipY = false;
@@ -16,10 +17,11 @@ export function Carpet(props) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Plane.geometry}
-        material={nodes.Plane.material}
-        position={[2.906, -0.014, -2.327]}
-        scale={[2.86, 3.54, 4.042]}
+        geometry={nodes.Cylinder050.geometry}
+        material={nodes.Cylinder050.material}
+        position={[-6.832, 1.697, -4.241]}
+        rotation={[0, 0, -Math.PI / 2]}
+        scale={[0.64, 0.123, 0.64]}
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
@@ -27,4 +29,4 @@ export function Carpet(props) {
   );
 }
 
-useGLTF.preload("/camping2.glb");
+useGLTF.preload("/wallStand.glb");
