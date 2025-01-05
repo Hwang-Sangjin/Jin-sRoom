@@ -24,6 +24,48 @@ export function LPItems(props) {
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
+      <mesh
+        position={[-6.9, 3.13, -0.12]}
+        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+      >
+        <planeGeometry args={[0.8, 0.8]} />
+        <meshBasicMaterial color={"white"} />
+      </mesh>
+      <mesh
+        position={[-6.9, 3.13, -1.23]}
+        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+      >
+        <planeGeometry args={[0.8, 0.8]} />
+        <meshBasicMaterial color={"white"} />
+      </mesh>
+      <mesh
+        position={[-6.9, 3.13, -2.34]}
+        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+      >
+        <planeGeometry args={[0.8, 0.8]} />
+        <meshBasicMaterial color={"white"} />
+      </mesh>
+      <mesh
+        position={[-6.9, 4.19, -0.12]}
+        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+      >
+        <planeGeometry args={[0.8, 0.8]} />
+        <meshBasicMaterial color={"white"} />
+      </mesh>
+      <mesh
+        position={[-6.9, 4.19, -1.23]}
+        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+      >
+        <planeGeometry args={[0.8, 0.8]} />
+        <meshBasicMaterial color={"white"} />
+      </mesh>
+      <mesh
+        position={[-6.9, 4.19, -2.34]}
+        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
+      >
+        <planeGeometry args={[0.8, 0.8]} />
+        <meshBasicMaterial color={"white"} />
+      </mesh>
     </group>
   );
 }

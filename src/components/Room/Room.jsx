@@ -5,6 +5,7 @@ import React, { useLayoutEffect, useRef } from "react";
 import RoomBase from "./RoomBase/RoomBase";
 import RoomCamping from "./RoomCamping/RoomCamping";
 import RoomWall from "./RoomWall/RoomWall";
+import RoomBook from "./RoomBook/RoomBook";
 
 export const FLOOR_HEIGHT = 2.3;
 export const NB_FLOORS = 3;
@@ -70,6 +71,7 @@ const Room = () => {
       <RoomBase />
       <RoomCamping />
       <RoomWall />
+      <RoomBook />
     </group>
   );
 };
