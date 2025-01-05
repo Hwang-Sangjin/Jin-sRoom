@@ -18,11 +18,11 @@ export function BookStuff(props) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder061.geometry}
-        material={nodes.Cylinder061.material}
-        position={[-4.445, 3.852, 4.888]}
-        rotation={[-Math.PI, 0.719, -Math.PI]}
-        scale={[0.38, 0.209, 0.38]}
+        geometry={nodes.Circle001.geometry}
+        material={nodes.Circle001.material}
+        position={[-4.965, 0.037, 5.481]}
+        rotation={[0, 0.852, 0]}
+        scale={0.468}
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
