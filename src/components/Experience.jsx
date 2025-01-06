@@ -11,6 +11,7 @@ export const Experience = () => {
 
   return (
     <>
+      <ambientLight intensity={3} />
       <OrbitControls
       // enableZoom={false}
       // enablePan={false}
