@@ -4,24 +4,12 @@ import {
   useFaceControls,
   useGLTF,
 } from "@react-three/drei";
-import { useControls } from "leva";
+
 import { DoubleSide } from "three";
 
 export function Emissive(props) {
   const { nodes, materials } = useGLTF("/baseEmissive.glb");
 
-  const materialProps = useControls({
-    thickness: { value: 0.01, min: 0, max: 3, step: 0.05 },
-
-    roughness: { value: 0.0, min: 0, max: 1, step: 0.1 },
-
-    transmission: { value: 1.5, min: 0, max: 1, step: 0.1 },
-
-    ior: { value: 2.5, min: 0, max: 3, step: 0.1 },
-
-    chromaticAberration: { value: 1.0, min: 0, max: 1 },
-    backside: { value: true },
-  });
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -31,8 +19,14 @@ export function Emissive(props) {
         material={materials["Material.100"]}
       >
         <MeshTransmissionMaterial
+          attenuationColor={"#ffffff"}
           color={"#ffffff"}
-          {...materialProps}
+          backSide={true}
+          thickness={0.2}
+          roughness={0}
+          transmission={1}
+          ior={1.2}
+          chromaticAberration={0.02}
           side={DoubleSide}
         />
       </mesh>

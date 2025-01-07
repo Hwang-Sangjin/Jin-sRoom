@@ -1,10 +1,10 @@
 import * as THREE from "three";
 import React, { useRef } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
-import BaseTexture from "&/Room/campingStuff.jpg";
+import BaseTexture from "&/Room/CampingStuff.jpg";
 
 export function CampingStuff(props) {
-  const { nodes, materials } = useGLTF("/campingStuff.glb");
+  const { nodes, materials } = useGLTF("/CampingStuff.glb");
   const bakedTexture = useTexture(BaseTexture);
 
   bakedTexture.flipY = false;
@@ -17,9 +17,9 @@ export function CampingStuff(props) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder078.geometry}
-        material={nodes.Cylinder078.material}
-        position={[3.254, 1.498, -2.369]}
+        geometry={nodes.Cylinder134.geometry}
+        material={nodes.Cylinder134.material}
+        position={[3.254, 1.186, -2.368]}
         rotation={[Math.PI, -1.04, Math.PI]}
         scale={0.291}
       >
@@ -29,4 +29,4 @@ export function CampingStuff(props) {
   );
 }
 
-useGLTF.preload("/campingStuff.glb");
+useGLTF.preload("/CampingStuff.glb");
