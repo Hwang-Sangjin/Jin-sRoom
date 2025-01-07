@@ -1,19 +1,33 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/DeskMouse.jpg";
+import { useFrame, useThree } from "@react-three/fiber";
 
 export function DeskMouse(props) {
   const { nodes, materials } = useGLTF("/DeskMouse.glb");
+  const { mouse } = useThree();
   const bakedTexture = useTexture(BaseTexture);
+  const [mousePosition, setMousePosition] = useState([0, 0]);
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
 
   bakedTexture.minFilter = THREE.LinearFilter;
   bakedTexture.magFilter = THREE.NearestFilter;
+
+  useFrame(() => {
+    console.log(mouse.x, mouse.y);
+    setMousePosition([-mouse.x / 4, mouse.y / 4, 0]);
+  });
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      position={
+        mousePosition ? [mousePosition[0], 0, mousePosition[1]] : [0, 0, 0]
+      }
+      dispose={null}
+    >
       <mesh
         castShadow
         receiveShadow
