@@ -1,11 +1,13 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/Chair.jpg";
 import { useFrame } from "@react-three/fiber";
 
 export function Chair(props) {
   const { nodes, materials } = useGLTF("/Chair.glb");
+  const [rotation, setRotation] = useState(0);
+  const [rotationSpeed, setRotationSpeed] = useState(0.02);
   const bakedTexture = useTexture(BaseTexture);
   const mesh = useRef();
 
@@ -16,7 +18,11 @@ export function Chair(props) {
   bakedTexture.magFilter = THREE.NearestFilter;
 
   useFrame(() => {
-    mesh.current.rotation.y += 0.01;
+    if (rotation === 1) {
+      mesh.current.rotation.y += rotationSpeed;
+    } else if (rotation === 2) {
+      mesh.current.rotation.y -= rotationSpeed;
+    }
   });
   return (
     <group {...props} dispose={null}>
@@ -28,6 +34,11 @@ export function Chair(props) {
         material={nodes.Cylinder064.material}
         position={[-2.173, 0.998, 3.617]}
         scale={[0.059, 0.045, 0.059]}
+        onClick={(event) => {
+          setRotation((prev) => (prev + 1) % 3);
+          setRotationSpeed(Math.random() * 0.06 + 0.01);
+          event.stopPropagation();
+        }}
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
