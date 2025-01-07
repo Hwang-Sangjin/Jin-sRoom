@@ -20,6 +20,8 @@ export function CampingEmissive(props) {
     ior: { value: 1.2, min: 0, max: 3, step: 0.1 },
 
     chromaticAberration: { value: 0.02, min: 0, max: 1 },
+
+    backSide: { value: true },
   });
 
   return (
@@ -29,33 +31,24 @@ export function CampingEmissive(props) {
         receiveShadow
         geometry={nodes.NurbsPath.geometry}
         material={nodes.NurbsPath.material}
-        position={[3.214, 1.325, -1.794]}
-        rotation={[0, 0, -Math.PI / 2]}
-        scale={0.123}
       >
-        <meshBasicMaterial />
+        <MeshTransmissionMaterial {...materialProps} />
       </mesh>
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.NurbsPath001.geometry}
         material={nodes.NurbsPath001.material}
-        position={[2.293, 1.325, -1.474]}
-        rotation={[0, 0, -Math.PI / 2]}
-        scale={0.123}
       >
-        <meshBasicMaterial />
+        <MeshTransmissionMaterial {...materialProps} />
       </mesh>
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Cylinder138.geometry}
         material={nodes.Cylinder138.material}
-        position={[3.256, 1.538, -2.367]}
-        rotation={[Math.PI, -1.04, Math.PI]}
-        scale={[0.125, 0.21, 0.125]}
       >
-        <meshBasicMaterial />
+        <MeshTransmissionMaterial {...materialProps} />
       </mesh>
     </group>
   );
