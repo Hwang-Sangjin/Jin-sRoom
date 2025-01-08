@@ -1,10 +1,24 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/LPItems.jpg";
+import musicAPI from "../../../music/index";
+import { useRecoilState } from "recoil";
+import { currentMusic } from "../../../recoil/currentMusic";
+
+const LPPosition = [
+  [-6.9, 3.13, -0.12],
+  [-6.9, 3.13, -1.23],
+  [-6.9, 3.13, -2.34],
+  [-6.9, 4.19, -0.12],
+  [-6.9, 4.19, -1.23],
+  [-6.9, 4.19, -2.34],
+];
 
 export function LPItems(props) {
   const { nodes, materials } = useGLTF("/LPItems.glb");
+  const [musicList, setMusicList] = useState(musicAPI);
+  const [playMusic, setPlayMusic] = useRecoilState(currentMusic);
   const bakedTexture = useTexture(BaseTexture);
 
   bakedTexture.flipY = false;
@@ -12,6 +26,11 @@ export function LPItems(props) {
 
   bakedTexture.minFilter = THREE.LinearFilter;
   bakedTexture.magFilter = THREE.NearestFilter;
+
+  const onClickLP = (music) => {
+    setPlayMusic(music);
+  };
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -24,48 +43,27 @@ export function LPItems(props) {
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
-      <mesh
-        position={[-6.9, 3.13, -0.12]}
-        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
-      >
-        <planeGeometry args={[0.8, 0.8]} />
-        <meshBasicMaterial color={"white"} />
-      </mesh>
-      <mesh
-        position={[-6.9, 3.13, -1.23]}
-        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
-      >
-        <planeGeometry args={[0.8, 0.8]} />
-        <meshBasicMaterial color={"white"} />
-      </mesh>
-      <mesh
-        position={[-6.9, 3.13, -2.34]}
-        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
-      >
-        <planeGeometry args={[0.8, 0.8]} />
-        <meshBasicMaterial color={"white"} />
-      </mesh>
-      <mesh
-        position={[-6.9, 4.19, -0.12]}
-        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
-      >
-        <planeGeometry args={[0.8, 0.8]} />
-        <meshBasicMaterial color={"white"} />
-      </mesh>
-      <mesh
-        position={[-6.9, 4.19, -1.23]}
-        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
-      >
-        <planeGeometry args={[0.8, 0.8]} />
-        <meshBasicMaterial color={"white"} />
-      </mesh>
-      <mesh
-        position={[-6.9, 4.19, -2.34]}
-        rotation={[-Math.PI * 0.5, Math.PI * 0.5, 0]}
-      >
-        <planeGeometry args={[0.8, 0.8]} />
-        <meshBasicMaterial color={"white"} />
-      </mesh>
+
+      {musicList.map((e, index) => {
+        const texture = useTexture(e.musicImageSrc);
+
+        texture.flipY = false;
+        texture.colorSpace = THREE.SRGBColorSpace;
+
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.NearestFilter;
+        return (
+          <mesh
+            key={index}
+            position={LPPosition[index]}
+            rotation={[-Math.PI * 0.5, Math.PI * 0.5, -Math.PI * 0.5]}
+            onClick={(event) => onClickLP(e)}
+          >
+            <planeGeometry attach="geometry" args={[0.8, 0.8]} />
+            <meshBasicMaterial attach="material" map={texture} />
+          </mesh>
+        );
+      })}
     </group>
   );
 }

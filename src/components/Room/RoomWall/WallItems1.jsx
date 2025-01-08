@@ -76,7 +76,7 @@ export function WallItems1(props) {
         geometry={nodes.Curve001.geometry}
         material={nodes.Curve001.material}
         scale={hovered2 ? scaleGrowth : 1}
-        onClick={() => handleClick("https://www.instagram.com/eudaimoniajin/")}
+        onClick={() => handleClick("https://velog.io/@magpies1221/posts")}
         // onPointerEnter={() => {
         //   handleEnter2();
         // }}
@@ -93,7 +93,7 @@ export function WallItems1(props) {
         geometry={nodes.Curve014.geometry}
         material={nodes.Curve014.material}
         scale={hovered3 ? scaleGrowth : 1}
-        onClick={() => handleClick("https://velog.io/@magpies1221/posts")}
+        onClick={() => handleClick("https://www.instagram.com/eudaimoniajin/")}
         // onPointerEnter={() => {
         //   handleEnter3();
         // }}

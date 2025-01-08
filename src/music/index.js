@@ -1,44 +1,53 @@
-import merryChristmas from "&/MerryChristmas.mp3";
-import merryChristmasImg from "./MerryChristmas.jpg";
-import myFavoriteThings from "&/MyFavoriteThings.mp3";
-import myFavoriteThingsImg from "./MyFavoriteThings.jpg";
-import christmasLights from "&/ChristmasLights.mp3";
-import christmasLightsImg from "./ChristmasLights.jpg";
-import theChristmasSong from "&/TheChristmasSong.mp3";
-import theChristmasSongImg from "./TheChristmasSong.jpg";
-import oTannenbaum from "&/OTannenbaum.mp3";
-import oTannenbaumImg from "./OTannenbaum.jpg";
+import thisIsHowItFeels from "&/ThisIsHowItFeels.mp3";
+import complicated from "&/Complicated.mp3";
+import noSurprises from "&/NoSurprises.mp3";
+import allIveEverKnown from "&/AllIveEverKnown.mp3";
+import breakeven from "&/Breakeven.mp3";
+import DancingInIheMoonlight from "&/DancingInTheMoonlight.mp3";
+
+import thisIsHowItFeelsImg from "./ThisIsHowItFeels.jpg";
+import complicatedImg from "./Complicated.jpg";
+import noSurprisesImg from "./NoSurprises.jpg";
+import allIveEverKnownImg from "./AllIveEverKnown.jpg";
+import breakevenImg from "./Breakeven.jpg";
+import DancingInIheMoonlightImg from "./DancingInTheMoonlight.jpg";
 
 const musicAPI = [
   {
-    musicName: "Merry Christmas Mr.Lawrence",
-    musicArtist: "Ryuichi Sakamoto",
-    musicSrc: merryChristmas,
-    musicImageSrc: merryChristmasImg,
+    musicName: "This Is How It Feels",
+    musicArtist: "D4vd & Laufey",
+    musicSrc: thisIsHowItFeels,
+    musicImageSrc: thisIsHowItFeelsImg,
   },
   {
-    musicName: "My Favorite Things",
-    musicArtist: "Leslie Odom, Jr",
-    musicSrc: myFavoriteThings,
-    musicImageSrc: myFavoriteThingsImg,
+    musicName: "Complicated",
+    musicArtist: "Matt Maltese",
+    musicSrc: complicated,
+    musicImageSrc: complicatedImg,
   },
   {
-    musicName: "Christmas Lights",
-    musicArtist: "Coldplay",
-    musicSrc: christmasLights,
-    musicImageSrc: christmasLightsImg,
+    musicName: "No Surprises",
+    musicArtist: "Radiohead",
+    musicSrc: noSurprises,
+    musicImageSrc: noSurprisesImg,
   },
   {
-    musicName: "The Christmas Song",
-    musicArtist: "Eddie Higgins Trio",
-    musicSrc: theChristmasSong,
-    musicImageSrc: theChristmasSongImg,
+    musicName: "All i’ve ever known ",
+    musicArtist: "Bahamas Is Afie",
+    musicSrc: allIveEverKnown,
+    musicImageSrc: allIveEverKnownImg,
   },
   {
-    musicName: "O Tannenbaum",
-    musicArtist: "Vince Guaraldi Trio",
-    musicSrc: oTannenbaum,
-    musicImageSrc: oTannenbaumImg,
+    musicName: "Breakeven",
+    musicArtist: "The script",
+    musicSrc: breakeven,
+    musicImageSrc: breakevenImg,
+  },
+  {
+    musicName: "Dancing in the moonlight",
+    musicArtist: "Toploader",
+    musicSrc: DancingInIheMoonlight,
+    musicImageSrc: DancingInIheMoonlightImg,
   },
 ];
 
