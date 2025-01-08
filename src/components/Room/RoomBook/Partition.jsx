@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/Partition.jpg";
 import CardApi from "../../../Card";
@@ -17,6 +17,7 @@ const height = 1346;
 export function Partition(props) {
   const { nodes, materials } = useGLTF("/Partition.glb");
   const [cardList, setCardList] = useState(CardApi);
+  const [randomValueArr, setRandomValueArr] = useState([]);
 
   const bakedTexture = useTexture(BaseTexture);
 
@@ -25,6 +26,15 @@ export function Partition(props) {
 
   bakedTexture.minFilter = THREE.LinearFilter;
   bakedTexture.magFilter = THREE.NearestFilter;
+
+  useEffect(() => {
+    let temp = [];
+    for (let i = 0; i < CardPosition.length; i++) {
+      temp.push((Math.random() - 0.5) * 0.3);
+    }
+    setRandomValueArr(temp);
+  }, []);
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -46,13 +56,11 @@ export function Partition(props) {
         texture.minFilter = THREE.LinearFilter;
         texture.magFilter = THREE.NearestFilter;
 
-        const randomRotation = (Math.random() - 0.5) * 0.5;
-
         return (
           <mesh
             key={index + 10}
             position={CardPosition[index]}
-            rotation={[0, Math.PI, Math.PI + randomRotation]}
+            rotation={[0, Math.PI, Math.PI + randomValueArr[index]]}
           >
             <planeGeometry
               attach="geometry"
