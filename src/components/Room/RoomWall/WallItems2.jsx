@@ -17,10 +17,11 @@ export function WallItems2(props) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder052.geometry}
-        material={nodes.Cylinder052.material}
-        position={[-6.687, 3.522, -4.285]}
-        scale={0.153}
+        geometry={nodes.BézierCurve016.geometry}
+        material={nodes.BézierCurve016.material}
+        position={[-6.644, 3.997, -4.273]}
+        rotation={[0, 0, -Math.PI / 2]}
+        scale={0.486}
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
