@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import React, { useRef } from "react";
-import { useGLTF, useTexture } from "@react-three/drei";
+import { Html, useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/DeskImac.jpg";
 
 export function DeskImac(props) {
@@ -25,6 +25,15 @@ export function DeskImac(props) {
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
+      <Html
+        position={[-2.25, 2.77, 5.53]}
+        transform
+        rotation={[Math.PI * 0.03, Math.PI, 0]}
+        wrapperClass="htmlScreen"
+        distanceFactor={0.55}
+      >
+        <iframe src="https://threejs.org/" />
+      </Html>
     </group>
   );
 }

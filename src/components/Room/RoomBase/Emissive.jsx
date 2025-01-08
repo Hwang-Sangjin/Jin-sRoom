@@ -18,7 +18,7 @@ export function Emissive(props) {
         geometry={nodes.Base014.geometry}
         material={materials["Material.100"]}
       >
-        <MeshTransmissionMaterial
+        {/* <MeshTransmissionMaterial
           attenuationColor={"#ffffff"}
           color={"#ffffff"}
           backSide={true}
@@ -28,7 +28,7 @@ export function Emissive(props) {
           ior={1.2}
           chromaticAberration={0.02}
           side={DoubleSide}
-        />
+        /> */}
       </mesh>
     </group>
   );

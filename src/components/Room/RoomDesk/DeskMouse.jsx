@@ -17,7 +17,6 @@ export function DeskMouse(props) {
   bakedTexture.magFilter = THREE.NearestFilter;
 
   useFrame(() => {
-    console.log(mouse.x, mouse.y);
     setMousePosition([-mouse.x / 4, mouse.y / 4, 0]);
   });
   return (

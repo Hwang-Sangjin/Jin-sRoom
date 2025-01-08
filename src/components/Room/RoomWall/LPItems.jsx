@@ -17,10 +17,10 @@ export function LPItems(props) {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cube154.geometry}
-        material={nodes.Cube154.material}
-        position={[-6.03, 1.331, -2.606]}
-        scale={0.368}
+        geometry={nodes.Cube153.geometry}
+        material={nodes.Cube153.material}
+        position={[-6.233, 1.441, -0.183]}
+        scale={[0.6, 0.296, 0.6]}
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>

@@ -7,3 +7,11 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.htmlScreen iframe {
+  width: 1024px;
+  height: 580px;
+  border: none;
+  border-radius: 5px;
+  background: #000000;
+}
