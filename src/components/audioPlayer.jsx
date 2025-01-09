@@ -37,22 +37,22 @@ const AudioPlayer = ({
           onClick={() => setSection(0)}
           className=" btn btn-light px-4 py-2"
         >
-          <BiHome size={40} />
+          <BiHome color="white" size={40} />
         </button>
         <button
           onClick={() => setSection(1)}
           className=" btn btn-light px-4 py-2"
         >
-          <BiCar size={40} />
+          <BiCar color="white" size={40} />
         </button>
         <button
           onClick={() => setSection(2)}
           className=" btn btn-light px-4 py-2"
         >
-          <BiCameraMovie size={40} />
+          <BiCameraMovie color="white" size={40} />
         </button>
         <button onClick={openDrawer} className=" btn btn-light px-4 py-2">
-          <BiSolidMusic size={40} />
+          <BiSolidMusic color="white" size={40} />
         </button>
       </div>
       <Drawer

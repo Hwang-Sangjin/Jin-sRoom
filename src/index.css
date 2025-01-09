@@ -9,9 +9,9 @@ body {
 }
 
 .htmlScreen iframe {
-  width: 1024px;
-  height: 580px;
+  width: 1040px;
+  height: 587px;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   background: #000000;
 }

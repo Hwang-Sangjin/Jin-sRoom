@@ -1,5 +1,6 @@
 import { LPItems } from "./LPItems";
 import { LPPlayer } from "./LPPlayer";
+import LPProjectItem from "./LPProject";
 import { WallBook } from "./WallBook";
 import { WallItems1 } from "./WallItems1";
 import { WallItems2 } from "./WallItems2";
@@ -16,6 +17,7 @@ const RoomWall = () => {
       <LPItems />
       <LPPlayer />
       <WallBook />
+      <LPProjectItem />
     </group>
   );
 };

@@ -1,8 +1,10 @@
 import * as THREE from "three";
 import React, { useEffect, useRef, useState } from "react";
-import { useGLTF, useTexture } from "@react-three/drei";
+import { meshBounds, useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/Partition.jpg";
 import CardApi from "../../../Card";
+import { useRecoilState } from "recoil";
+import { sectionState } from "../../../recoil/sectionState";
 
 const CardPosition = [
   [-5.05, 3.98, 1.86],
@@ -18,6 +20,7 @@ export function Partition(props) {
   const { nodes, materials } = useGLTF("/Partition.glb");
   const [cardList, setCardList] = useState(CardApi);
   const [randomValueArr, setRandomValueArr] = useState([]);
+  const [section, setSection] = useRecoilState(sectionState);
 
   const bakedTexture = useTexture(BaseTexture);
 
@@ -26,6 +29,10 @@ export function Partition(props) {
 
   bakedTexture.minFilter = THREE.LinearFilter;
   bakedTexture.magFilter = THREE.NearestFilter;
+
+  const handleClick = (url) => {
+    window.open(url, "_blank"); // Opens the link in a new tab
+  };
 
   useEffect(() => {
     let temp = [];
@@ -38,11 +45,15 @@ export function Partition(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
+        raycast={meshBounds}
         castShadow
         receiveShadow
         geometry={nodes.Cube106.geometry}
         material={nodes.Cube106.material}
         position={[-6.878, 2.249, 1.886]}
+        onClick={() => {
+          setSection(3);
+        }}
       >
         <meshBasicMaterial map={bakedTexture} />
       </mesh>
@@ -61,6 +72,7 @@ export function Partition(props) {
             key={index + 10}
             position={CardPosition[index]}
             rotation={[0, Math.PI, Math.PI + randomValueArr[index]]}
+            onClick={() => handleClick(e.CardUrl)}
           >
             <planeGeometry
               attach="geometry"

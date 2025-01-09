@@ -3,11 +3,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { SpotLight, useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/Projection.jpg";
 import { useFrame } from "@react-three/fiber";
+import { useRecoilState } from "recoil";
+import { sectionState } from "../../../recoil/sectionState";
 
 export function Projection(props) {
   const light = useRef();
   const screen = useRef();
   const [isOn, setIsOn] = useState(false);
+  const [section, setSection] = useRecoilState(sectionState);
 
   const { nodes, materials } = useGLTF("/Projection.glb");
   const bakedTexture = useTexture(BaseTexture);
@@ -22,6 +25,14 @@ export function Projection(props) {
       light.current.target.position.set(2.85, 1.28, -8);
     }
   }, []);
+
+  useEffect(() => {
+    if (section === 2) {
+      setIsOn(true);
+    } else {
+      setIsOn(false);
+    }
+  }, [section]);
 
   return (
     <group {...props} dispose={null}>
@@ -51,7 +62,7 @@ export function Projection(props) {
         intensity={10}
       />
       <mesh visible={isOn} ref={screen} position={[2.85, 1.28, -8]}>
-        <planeGeometry args={[5, 3]} />
+        <planeGeometry args={[7, 5]} />
         <meshBasicMaterial color={"#000000"} />
       </mesh>
     </group>
