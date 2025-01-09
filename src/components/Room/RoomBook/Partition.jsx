@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import React, { useEffect, useRef, useState } from "react";
-import { meshBounds, useGLTF, useTexture } from "@react-three/drei";
+import { meshBounds, Text, useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/Partition.jpg";
 import CardApi from "../../../Card";
 import { useRecoilState } from "recoil";
@@ -68,22 +68,33 @@ export function Partition(props) {
         texture.magFilter = THREE.NearestFilter;
 
         return (
-          <mesh
-            key={index + 10}
-            position={CardPosition[index]}
-            rotation={[0, Math.PI * 2, Math.PI + randomValueArr[index]]}
-            onClick={() => handleClick(e.CardUrl)}
-          >
-            <planeGeometry
-              attach="geometry"
-              args={[width / (1080 * 3), height / (1080 * 3)]}
-            />
-            <meshBasicMaterial
-              attach="material"
-              map={texture}
-              side={THREE.DoubleSide}
-            />
-          </mesh>
+          <group key={index + 10} position={CardPosition[index]}>
+            <mesh
+              rotation={[0, Math.PI * 2, Math.PI + randomValueArr[index]]}
+              onClick={() => handleClick(e.CardUrl)}
+            >
+              <planeGeometry
+                attach="geometry"
+                args={[width / (1080 * 3), height / (1080 * 3)]}
+              />
+              <meshBasicMaterial
+                attach="material"
+                map={texture}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+            <Text
+              visible={section === 3 ? true : false}
+              rotation={[0, Math.PI, 0]}
+              font="./Jersey10-Regular.ttf"
+              position={[0, 0.3, -0.1]}
+              fontSize={0.06}
+              maxWidth={0.5}
+              color={"#383838"}
+            >
+              {e.CardTitle}
+            </Text>
+          </group>
         );
       })}
     </group>

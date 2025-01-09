@@ -105,11 +105,8 @@ const LPProjectItem = () => {
           bakedTexture.minFilter = THREE.LinearFilter;
           bakedTexture.magFilter = THREE.NearestFilter;
           return (
-            <group>
-              <mesh
-                key={index + 100}
-                position={[-6.2 - index * 0.03, 1.6, -1.25]}
-              >
+            <group key={index + 100}>
+              <mesh position={[-6.2 - index * 0.03, 1.6, -1.25]}>
                 <boxGeometry args={[0.02, 0.7, 0.7, 1, 1, 1]} />
                 <meshPhysicalMaterial color={color[index]} />
               </mesh>
@@ -139,7 +136,7 @@ const LPProjectItem = () => {
                 <Text
                   font="./Jersey10-Regular.ttf"
                   position={[-0.3 + index * 0.2, -0.2, -0.1]}
-                  key={`${e} + index`}
+                  key={index + 100}
                   fontSize={0.05}
                   color={
                     e === "React"
