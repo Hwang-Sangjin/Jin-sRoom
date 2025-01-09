@@ -3,9 +3,11 @@ import LPProject from "../../../LPProject";
 import gsap from "gsap";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../../../recoil/sectionState";
-import { Text } from "@react-three/drei";
+import { Text, useTexture } from "@react-three/drei";
 import { BiCaretLeft } from "react-icons/bi";
 import { BiCaretRight } from "react-icons/bi";
+import BaseTexture from "&/Room/LPPlayer.jpg";
+import * as THREE from "three";
 
 const LPProjectItem = () => {
   const [project, setProject] = useState(LPProject);
@@ -14,6 +16,7 @@ const LPProjectItem = () => {
   const LPRef = useRef();
   const [section, setSection] = useRecoilState(sectionState);
   const [prevSelected, setPrevSelected] = useState(null);
+
   useEffect(() => {
     let temp = [];
 
@@ -45,7 +48,7 @@ const LPProjectItem = () => {
           duration: 2,
           repeat: 0,
           x: prevSelected.position.x,
-          y: 1.6,
+          y: 0,
           z: prevSelected.position.z,
           ease: "power3.inOut",
         });
@@ -55,7 +58,7 @@ const LPProjectItem = () => {
         duration: 2,
         repeat: 0,
         x: object.position.x,
-        y: 2.3,
+        y: 0.7,
         z: object.position.z,
         ease: "power3.inOut",
       });
@@ -67,7 +70,7 @@ const LPProjectItem = () => {
         duration: 2,
         repeat: 0,
         x: prevSelected.position.x,
-        y: 1.6,
+        y: 0,
         z: prevSelected.position.z,
         ease: "power3.inOut",
       });
@@ -86,19 +89,38 @@ const LPProjectItem = () => {
     return randomColorString;
   };
 
+  const handleClick = (url) => {
+    window.open(url, "_blank"); // Opens the link in a new tab
+  };
+
   return (
     <group>
       <group ref={LPRef}>
         {project.map((e, index) => {
-          const Ypos = index === selectedIndex ? 2.3 : 1.6;
+          const bakedTexture = useTexture(e.image);
+
+          bakedTexture.flipY = false;
+          bakedTexture.colorSpace = THREE.SRGBColorSpace;
+
+          bakedTexture.minFilter = THREE.LinearFilter;
+          bakedTexture.magFilter = THREE.NearestFilter;
           return (
-            <mesh
-              key={index + 100}
-              position={[-6.2 - index * 0.03, 1.6, -1.25]}
-            >
-              <boxGeometry args={[0.02, 0.7, 0.7, 1, 1, 1]} />
-              <meshBasicMaterial color={color[index]} />
-            </mesh>
+            <group>
+              <mesh
+                key={index + 100}
+                position={[-6.2 - index * 0.03, 1.6, -1.25]}
+              >
+                <boxGeometry args={[0.02, 0.7, 0.7, 1, 1, 1]} />
+                <meshPhysicalMaterial color={color[index]} />
+              </mesh>
+              <mesh
+                rotation={[Math.PI, Math.PI * 1.5, 0]}
+                position={[-6.185 - index * 0.03, 1.6, -1.25]}
+              >
+                <planeGeometry args={[0.71, 0.71]} />
+                <meshBasicMaterial map={bakedTexture} side={THREE.DoubleSide} />
+              </mesh>
+            </group>
           );
         })}
       </group>
@@ -107,17 +129,40 @@ const LPProjectItem = () => {
         rotation={[0, Math.PI * 0.5, 0]}
         position={[-6.2, 2.5, -2.6]}
       >
-        <Text
-          fontSize={0.2}
-          onClick={() => {
-            console.log("clicked");
-          }}
-        >
+        <Text fontSize={0.2} font="./Jersey10-Regular.ttf">
           {selectedIndex !== -1 ? project[selectedIndex].title : null}
         </Text>
+
+        {selectedIndex !== -1
+          ? project[selectedIndex].stack.map((e, index) => {
+              return (
+                <Text
+                  font="./Jersey10-Regular.ttf"
+                  position={[-0.3 + index * 0.2, -0.2, -0.1]}
+                  key={`${e} + index`}
+                  fontSize={0.05}
+                  color={
+                    e === "React"
+                      ? "#61DBFB"
+                      : e === "Three.js"
+                      ? "#080404"
+                      : e === "GLSL"
+                      ? "#5586a4"
+                      : e === "Blender"
+                      ? "#ea7600"
+                      : "white"
+                  }
+                >
+                  {e}
+                </Text>
+              );
+            })
+          : null}
+
         <Text
+          font="./Jersey10-Regular.ttf"
           position={[0.5, -0.5, 0]}
-          fontSize={0.1}
+          fontSize={0.05}
           onClick={() => {
             setSelectedIndex((prev) => (prev + 1) % project.length);
           }}
@@ -125,8 +170,19 @@ const LPProjectItem = () => {
           Next
         </Text>
         <Text
-          position={[-0.5, -0.5, 0]}
+          font="./Jersey10-Regular.ttf"
+          position={[0, -0.5, 0]}
           fontSize={0.1}
+          onClick={() => {
+            handleClick(project[selectedIndex].url);
+          }}
+        >
+          Explore
+        </Text>
+        <Text
+          font="./Jersey10-Regular.ttf"
+          position={[-0.5, -0.5, 0]}
+          fontSize={0.05}
           onClick={() => {
             setSelectedIndex(
               (prev) => (prev - 1 + project.length) % project.length

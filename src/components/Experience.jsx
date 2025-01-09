@@ -58,7 +58,7 @@ export const Experience = () => {
   return (
     <>
       <Environment preset="studio" />
-      <ambientLight intensity={10} />
+      <ambientLight intensity={2} />
       <OrbitControls
         ref={ref}
         // enableZoom={false}

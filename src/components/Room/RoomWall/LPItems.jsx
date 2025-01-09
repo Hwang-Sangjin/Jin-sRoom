@@ -56,11 +56,15 @@ export function LPItems(props) {
           <mesh
             key={index}
             position={LPPosition[index]}
-            rotation={[-Math.PI * 0.5, Math.PI * 0.5, -Math.PI * 0.5]}
+            rotation={[Math.PI, Math.PI * 1.5, 0]}
             onClick={(event) => onClickLP(e)}
           >
             <planeGeometry attach="geometry" args={[0.8, 0.8]} />
-            <meshBasicMaterial attach="material" map={texture} />
+            <meshBasicMaterial
+              attach="material"
+              map={texture}
+              side={THREE.DoubleSide}
+            />
           </mesh>
         );
       })}

@@ -71,14 +71,18 @@ export function Partition(props) {
           <mesh
             key={index + 10}
             position={CardPosition[index]}
-            rotation={[0, Math.PI, Math.PI + randomValueArr[index]]}
+            rotation={[0, Math.PI * 2, Math.PI + randomValueArr[index]]}
             onClick={() => handleClick(e.CardUrl)}
           >
             <planeGeometry
               attach="geometry"
               args={[width / (1080 * 3), height / (1080 * 3)]}
             />
-            <meshBasicMaterial attach="material" map={texture} />
+            <meshBasicMaterial
+              attach="material"
+              map={texture}
+              side={THREE.DoubleSide}
+            />
           </mesh>
         );
       })}
