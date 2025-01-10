@@ -2,10 +2,13 @@ import particlesVertexShader from "./shaders/vertex.glsl";
 import particlesFragmentShader from "./shaders/fragment.glsl";
 import * as THREE from "three";
 import { useEffect, useMemo, useState } from "react";
+import picture1 from "&/picture4.png";
+import { useTexture } from "@react-three/drei";
 
 const AboutExperience = () => {
+  const picture1Texture = useTexture(picture1);
   const [particlesGeometry, setParticlesGeometry] = useState(
-    new THREE.PlaneGeometry(10, 10, 32, 32)
+    new THREE.PlaneGeometry(10, 10, 128, 128)
   );
 
   const sizes = {
@@ -24,21 +27,24 @@ const AboutExperience = () => {
           sizes.height * sizes.pixelRatio
         ),
       },
+      uPictureTexture: { value: picture1Texture },
     }),
     []
   );
 
   return (
-    <points position={[7, 0, -5]} geometry={particlesGeometry}>
-      <shaderMaterial
-        blending={THREE.AdditiveBlending}
-        depthTest={false}
-        attach="material"
-        vertexShader={particlesVertexShader}
-        fragmentShader={particlesFragmentShader}
-        uniforms={particlesUniforms}
-      />
-    </points>
+    <group>
+      <points position={[7, 0, -5]} geometry={particlesGeometry}>
+        <shaderMaterial
+          blending={THREE.AdditiveBlending}
+          depthTest={false}
+          attach="material"
+          vertexShader={particlesVertexShader}
+          fragmentShader={particlesFragmentShader}
+          uniforms={particlesUniforms}
+        />
+      </points>
+    </group>
   );
 };
 
