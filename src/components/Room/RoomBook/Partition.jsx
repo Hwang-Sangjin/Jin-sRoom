@@ -88,9 +88,9 @@ export function Partition(props) {
               rotation={[0, Math.PI, 0]}
               font="./Jersey10-Regular.ttf"
               position={[0, 0.3, -0.1]}
-              fontSize={0.06}
-              maxWidth={0.5}
-              color={"#383838"}
+              fontSize={0.09}
+              maxWidth={0.8}
+              color={"white"}
             >
               {e.CardTitle}
             </Text>

@@ -39,10 +39,11 @@ const About = () => {
     canvas.style.top = "0";
     canvas.style.left = "0";
     canvas.style.pointerEvents = "none"; // Prevent interference with the 3D canvas
-
+    canvas.style.visibility = "hidden";
     // Append to a parent container
     document.body.appendChild(canvas);
     canvasRef.current = canvas;
+
     setCanvasTexture(new THREE.CanvasTexture(canvas));
 
     const temp = new Image();

@@ -29,6 +29,9 @@ const AboutExperience = ({
   const atticRef = useRef();
   const { camera } = useThree();
   const [glowSize, setGlowSize] = useState(0);
+  const [canvasCursorPrevious, setCanvasCursorPrevious] = useState(
+    new THREE.Vector2(9999, 9999)
+  );
 
   const picture1Texture1 = useTexture(picture1);
   const picture1Texture2 = useTexture(picture2);
@@ -68,6 +71,8 @@ const AboutExperience = ({
           (1 - uv.y) * canvas.current.height
         )
       );
+    } else {
+      setCanvasCursor(new THREE.Vector2(9999, 9999));
     }
   });
 
@@ -76,8 +81,12 @@ const AboutExperience = ({
     context.globalAlpha = 0.02;
     context.fillRect(0, 0, canvas.current.width, canvas.current.height);
 
+    const cursorDistance = canvasCursorPrevious.distanceTo(canvasCursor);
+    setCanvasCursorPrevious(canvasCursor);
+    const alpha = Math.min(cursorDistance * 0.1, 1);
+
     context.globalCompositeOperation = "lighten";
-    context.globalAlpha = 1;
+    context.globalAlpha = alpha;
     context.drawImage(
       glowImage,
       canvasCursor.x - glowSize * 0.5,
@@ -88,6 +97,53 @@ const AboutExperience = ({
     canvasTexture.needsUpdate = true;
   }, [canvasCursor]);
 
+  useEffect(() => {
+    let temp = particlesGeometry1;
+    let temp2 = particlesGeometry2;
+
+    const intensitiesArray = new Float32Array(
+      particlesGeometry1.attributes.position.count
+    );
+    const anglesArray = new Float32Array(
+      particlesGeometry1.attributes.position.count
+    );
+
+    const intensitiesArray2 = new Float32Array(
+      particlesGeometry2.attributes.position.count
+    );
+    const anglesArray2 = new Float32Array(
+      particlesGeometry2.attributes.position.count
+    );
+
+    for (let i = 0; i < particlesGeometry1.attributes.position.count; i++) {
+      intensitiesArray[i] = Math.random();
+      anglesArray[i] = Math.random() * Math.PI * 2;
+    }
+    for (let i = 0; i < particlesGeometry2.attributes.position.count; i++) {
+      intensitiesArray2[i] = Math.random();
+      anglesArray2[i] = Math.random() * Math.PI * 2;
+    }
+
+    temp.setAttribute(
+      "aIntensity",
+      new THREE.BufferAttribute(intensitiesArray, 1)
+    );
+    temp.setAttribute("aAngle", new THREE.BufferAttribute(anglesArray, 1));
+    temp.setIndex(null);
+    temp.deleteAttribute("normal");
+
+    temp2.setAttribute(
+      "aIntensity",
+      new THREE.BufferAttribute(intensitiesArray2, 1)
+    );
+    temp2.setAttribute("aAngle", new THREE.BufferAttribute(anglesArray2, 1));
+    temp2.setIndex(null);
+    temp2.deleteAttribute("normal");
+
+    setParticlesGeometry1(temp);
+    setParticlesGeometry2(temp2);
+  }, []);
+
   useLayoutEffect(() => {
     tl.current = gsap.timeline();
 
@@ -97,9 +153,22 @@ const AboutExperience = ({
       {
         duration: 2,
         y: 15,
+        onComplete: () => {
+          tl.current.to(
+            interactivePlane.current.position,
+            {
+              duration: 1,
+              x: -7,
+            },
+            0
+          );
+        },
       },
       0
     );
+
+    if (interactivePlane.current) {
+    }
   }, []);
 
   const particlesUniforms1 = useMemo(
