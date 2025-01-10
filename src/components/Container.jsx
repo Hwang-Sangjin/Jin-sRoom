@@ -5,7 +5,6 @@ import { currentMusic } from "../recoil/currentMusic";
 import { playState } from "../recoil/playState";
 import { useEffect, useRef, useState } from "react";
 import musicAPI from "../music";
-import FiberContainerr from "./FiberContainer";
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -129,7 +128,7 @@ const Container = () => {
           e.currentTarget.volume = volume;
         }}
       ></audio>
-      <FiberContainerr />
+      <FiberContainer />
       <AudioPlayer
         playMusic={playMusic}
         play={play}

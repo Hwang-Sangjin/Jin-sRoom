@@ -7,11 +7,12 @@ import { useThree } from "@react-three/fiber";
 import gsap from "gsap";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../recoil/sectionState";
+import { useNavigate } from "react-router";
 
 const position = [
   { x: 10, y: 5, z: -10 },
   { x: -3, y: 2.2, z: -3 },
-  { x: 1, y: 3, z: 0 },
+  { x: 2, y: 3, z: 0 },
   { x: -5.5, y: 4, z: -2.5 },
   { x: -2.5, y: 2.8, z: 2.5 },
 ];
@@ -29,6 +30,7 @@ export const Experience = () => {
   const pages = 3;
   const ref = useRef(null);
   const { camera } = useThree();
+  const navigate = useNavigate();
 
   const cameraAnimate = () => {
     if (ref.current) {
@@ -41,15 +43,41 @@ export const Experience = () => {
         ease: "power3.inOut",
       });
 
-      gsap.timeline().to(ref.current.target, {
-        duration: 2,
-        repeat: 0,
-        x: target[section].x,
-        y: target[section].y,
-        z: target[section].z,
-        ease: "power3.inOut",
-      });
+      if (section === 2) {
+        gsap.timeline().to(ref.current.target, {
+          duration: 2,
+          repeat: 0,
+          x: target[section].x,
+          y: target[section].y,
+          z: target[section].z,
+          ease: "power3.inOut",
+          onComplete: onCompleteAnimation,
+        });
+      } else {
+        gsap.timeline().to(ref.current.target, {
+          duration: 2,
+          repeat: 0,
+          x: target[section].x,
+          y: target[section].y,
+          z: target[section].z,
+          ease: "power3.inOut",
+        });
+      }
     }
+  };
+
+  const onCompleteAnimation = () => {
+    gsap.timeline().to(camera.position, {
+      duration: 2,
+      repeat: 0,
+      x: 3,
+      y: 3,
+      z: -6,
+      ease: "power3.inOut",
+      onComplete: () => {
+        navigate("/about");
+      },
+    });
   };
   useEffect(() => {
     cameraAnimate(section);
