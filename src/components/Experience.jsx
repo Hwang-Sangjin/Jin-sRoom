@@ -70,7 +70,7 @@ export const Experience = () => {
     gsap.timeline().to(camera.position, {
       duration: 2,
       repeat: 0,
-      x: 3,
+      x: 2,
       y: 3,
       z: -6,
       ease: "power3.inOut",

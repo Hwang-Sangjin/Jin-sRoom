@@ -1,7 +1,7 @@
 import { Canvas } from "@react-three/fiber";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import AboutExperience from "./AboutExperience";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, ScrollControls } from "@react-three/drei";
 
 const About = () => {
   const changeColor = (color) => {
@@ -14,8 +14,15 @@ const About = () => {
 
   return (
     <Canvas>
-      <OrbitControls />
-      <AboutExperience />
+      <OrbitControls
+        enableDamping={false}
+        enablePan={false}
+        enableZoom={false}
+        enableRotate={false}
+      />
+      <ScrollControls pages={2} damping={0.25}>
+        <AboutExperience />
+      </ScrollControls>
     </Canvas>
   );
 };
