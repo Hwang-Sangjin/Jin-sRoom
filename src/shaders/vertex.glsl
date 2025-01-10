@@ -1,6 +1,6 @@
 uniform vec2 uResolution;
 uniform sampler2D uPictureTexture;
-
+uniform sampler2D uDisplacementTexture;
 
 void main()
 {
@@ -10,7 +10,7 @@ void main()
     vec4 projectedPosition = projectionMatrix * viewPosition;
     gl_Position = projectedPosition;
 
-    float pictureIntensity = texture(uPictureTexture, uv).r;
+     float pictureIntensity = texture(uPictureTexture, uv).r;
 
    // Point size
     gl_PointSize = 0.07 * pictureIntensity * uResolution.y;

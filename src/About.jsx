@@ -1,16 +1,79 @@
-import { Canvas } from "@react-three/fiber";
-import { useEffect, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
 import AboutExperience from "./AboutExperience";
 import { OrbitControls, ScrollControls } from "@react-three/drei";
-
+import glowImg from "&/glow.png";
+import * as THREE from "three";
 const About = () => {
+  const canvasRef = useRef(null);
+  const raycaster = useRef(new THREE.Raycaster());
+  const interactivePlane = useRef(null);
+  const [screenCursor, setScreenCursor] = useState(
+    new THREE.Vector2(9999, 9999)
+  );
+  const [canvasCursor, setCanvasCursor] = useState(
+    new THREE.Vector2(9999, 9999)
+  );
+  const [context, setContext] = useState(null);
+  const [glowImage, setGlowImage] = useState(null);
+  const [canvasTexture, setCanvasTexture] = useState(null);
+
+  const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+    pixelRatio: Math.min(window.devicePixelRatio, 2),
+  };
+
   const changeColor = (color) => {
     document.getElementById("root").style.backgroundColor = color;
   };
 
   useEffect(() => {
     changeColor("#585858");
+
+    // Create a 2D canvas dynamically
+    const canvas = document.createElement("canvas");
+    canvas.width = 256;
+    canvas.height = 256;
+    canvas.style.position = "absolute";
+    canvas.style.top = "0";
+    canvas.style.left = "0";
+    canvas.style.pointerEvents = "none"; // Prevent interference with the 3D canvas
+
+    // Append to a parent container
+    document.body.appendChild(canvas);
+    canvasRef.current = canvas;
+    setCanvasTexture(new THREE.CanvasTexture(canvas));
+
+    const temp = new Image();
+    temp.src = glowImg;
+    setGlowImage(temp);
+
+    window.addEventListener("pointermove", (event) => {
+      setScreenCursor(
+        new THREE.Vector2(
+          (event.clientX / sizes.width) * 2 - 1,
+          -(event.clientY / sizes.height) * 2 + 1
+        )
+      );
+    });
+
+    setContext(canvas.getContext("2d"));
+
+    // Clean up
+    return () => {
+      if (canvas) {
+        document.body.removeChild(canvas);
+      }
+    };
   }, []);
+
+  useEffect(() => {
+    if (context && canvasRef.current) {
+      // Example: Draw something on the 2D canvas
+      context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+    }
+  }, [context]);
 
   return (
     <Canvas>
@@ -21,7 +84,22 @@ const About = () => {
         enableRotate={false}
       />
       <ScrollControls pages={2} damping={0.25}>
-        <AboutExperience />
+        <AboutExperience
+          setCanvasTexture={setCanvasTexture}
+          canvasTexture={canvasTexture}
+          glowImage={glowImage}
+          context={context}
+          canvas={canvasRef}
+          setCanvasCursor={setCanvasCursor}
+          canvasCursor={canvasCursor}
+          interactivePlane={interactivePlane}
+          raycaster={raycaster}
+          screenCursor={screenCursor}
+        />
+        <mesh visible={false} ref={interactivePlane} position={[7, 0, -5]}>
+          <planeGeometry args={[10, 10]} />
+          <meshBasicMaterial color={"red"} />
+        </mesh>
       </ScrollControls>
     </Canvas>
   );

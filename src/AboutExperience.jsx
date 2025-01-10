@@ -5,17 +5,30 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import picture1 from "&/picture4.png";
 import picture2 from "&/picture1.png";
 import { Text, useScroll, useTexture } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
 
 export const FLOOR_HEIGHT = 2.3;
 export const NB_FLOORS = 3;
 
-const AboutExperience = () => {
+const AboutExperience = ({
+  setCanvasTexture,
+  canvasTexture,
+  glowImage,
+  context,
+  setCanvasCursor,
+  canvasCursor,
+  canvas,
+  interactivePlane,
+  raycaster,
+  screenCursor,
+}) => {
   const ref = useRef();
   const tl = useRef();
   const libraryRef = useRef();
   const atticRef = useRef();
+  const { camera } = useThree();
+  const [glowSize, setGlowSize] = useState(0);
 
   const picture1Texture1 = useTexture(picture1);
   const picture1Texture2 = useTexture(picture2);
@@ -37,6 +50,43 @@ const AboutExperience = () => {
   useFrame(() => {
     tl.current.seek(scroll.offset * tl.current.duration());
   });
+
+  useFrame(() => {
+    raycaster.current.setFromCamera(screenCursor, camera);
+    const intersection = raycaster.current.intersectObject(
+      interactivePlane.current
+    );
+
+    setGlowSize(canvas.current.width * 0.25);
+
+    if (intersection.length) {
+      const uv = intersection[0].uv;
+
+      setCanvasCursor(
+        new THREE.Vector2(
+          uv.x * canvas.current.width,
+          (1 - uv.y) * canvas.current.height
+        )
+      );
+    }
+  });
+
+  useEffect(() => {
+    context.globalCompositeOperation = "source-over";
+    context.globalAlpha = 0.02;
+    context.fillRect(0, 0, canvas.current.width, canvas.current.height);
+
+    context.globalCompositeOperation = "lighten";
+    context.globalAlpha = 1;
+    context.drawImage(
+      glowImage,
+      canvasCursor.x - glowSize * 0.5,
+      canvasCursor.y - glowSize * 0.5,
+      glowSize,
+      glowSize
+    );
+    canvasTexture.needsUpdate = true;
+  }, [canvasCursor]);
 
   useLayoutEffect(() => {
     tl.current = gsap.timeline();
@@ -61,6 +111,7 @@ const AboutExperience = () => {
         ),
       },
       uPictureTexture: { value: picture1Texture1 },
+      uDisplacementTexture: new THREE.Uniform(canvasTexture),
     }),
     []
   );
