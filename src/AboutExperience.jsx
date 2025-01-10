@@ -33,6 +33,11 @@ const AboutExperience = ({
     new THREE.Vector2(9999, 9999)
   );
 
+  const ReactRef = useRef();
+  const ThreeJSRef = useRef();
+  const GLSLRef = useRef();
+  const BlenderRef = useRef();
+
   const picture1Texture1 = useTexture(picture1);
   const picture1Texture2 = useTexture(picture2);
   const [particlesGeometry1, setParticlesGeometry1] = useState(
@@ -54,7 +59,21 @@ const AboutExperience = ({
     tl.current.seek(scroll.offset * tl.current.duration());
   });
 
-  useFrame(() => {
+  useFrame((state) => {
+    const { clock } = state;
+    if (ReactRef) {
+      ReactRef.current.rotation.set(0, clock.getElapsedTime(), 0);
+    }
+    if (ThreeJSRef) {
+      ThreeJSRef.current.rotation.set(0, clock.getElapsedTime() * 1.2, 0);
+    }
+    if (GLSLRef) {
+      GLSLRef.current.rotation.set(0, clock.getElapsedTime() * 1.4, 0);
+    }
+    if (BlenderRef) {
+      BlenderRef.current.rotation.set(0, clock.getElapsedTime() * 1.6, 0);
+    }
+
     raycaster.current.setFromCamera(screenCursor, camera);
     const intersection = raycaster.current.intersectObject(
       interactivePlane.current
@@ -154,14 +173,16 @@ const AboutExperience = ({
         duration: 2,
         y: 15,
         onComplete: () => {
-          tl.current.to(
-            interactivePlane.current.position,
-            {
-              duration: 1,
-              x: -7,
-            },
-            0
-          );
+          if (interactivePlane.current) {
+            tl.current.to(
+              interactivePlane.current.position,
+              {
+                duration: 1,
+                x: -7,
+              },
+              0
+            );
+          }
         },
       },
       0
@@ -228,6 +249,7 @@ const AboutExperience = ({
           3D Web Developer
         </Text>
         <Text
+          ref={ReactRef}
           font="./Jersey10-Regular.ttf"
           position={[-4, -1, 0]}
           fontSize={0.5}
@@ -236,6 +258,7 @@ const AboutExperience = ({
           React
         </Text>
         <Text
+          ref={ThreeJSRef}
           font="./Jersey10-Regular.ttf"
           position={[-2.2, -1, 0]}
           fontSize={0.5}
@@ -244,6 +267,7 @@ const AboutExperience = ({
           Three.js
         </Text>
         <Text
+          ref={GLSLRef}
           font="./Jersey10-Regular.ttf"
           position={[-0.5, -1, 0]}
           fontSize={0.5}
@@ -252,6 +276,7 @@ const AboutExperience = ({
           GLSL
         </Text>
         <Text
+          ref={BlenderRef}
           font="./Jersey10-Regular.ttf"
           position={[-2.2, -2, 0]}
           fontSize={0.5}

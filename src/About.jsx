@@ -4,7 +4,11 @@ import AboutExperience from "./AboutExperience";
 import { OrbitControls, ScrollControls } from "@react-three/drei";
 import glowImg from "&/glow.png";
 import * as THREE from "three";
+import { BiChevronLeft } from "react-icons/bi";
+import { useNavigate } from "react-router";
 const About = () => {
+  let navigate = useNavigate();
+
   const canvasRef = useRef(null);
   const raycaster = useRef(new THREE.Raycaster());
   const interactivePlane = useRef(null);
@@ -77,32 +81,43 @@ const About = () => {
   }, [context]);
 
   return (
-    <Canvas>
-      <OrbitControls
-        enableDamping={false}
-        enablePan={false}
-        enableZoom={false}
-        enableRotate={false}
-      />
-      <ScrollControls pages={2} damping={0.25}>
-        <AboutExperience
-          setCanvasTexture={setCanvasTexture}
-          canvasTexture={canvasTexture}
-          glowImage={glowImage}
-          context={context}
-          canvas={canvasRef}
-          setCanvasCursor={setCanvasCursor}
-          canvasCursor={canvasCursor}
-          interactivePlane={interactivePlane}
-          raycaster={raycaster}
-          screenCursor={screenCursor}
+    <>
+      <div>
+        <BiChevronLeft
+          onClick={() => {
+            navigate(-1);
+          }}
+          className="absolute m-5 z-20"
+          size={60}
         />
-        <mesh visible={false} ref={interactivePlane} position={[7, 0, -5]}>
-          <planeGeometry args={[10, 10]} />
-          <meshBasicMaterial color={"red"} />
-        </mesh>
-      </ScrollControls>
-    </Canvas>
+      </div>
+      <Canvas>
+        <OrbitControls
+          enableDamping={false}
+          enablePan={false}
+          enableZoom={false}
+          enableRotate={false}
+        />
+        <ScrollControls pages={2} damping={0.25}>
+          <AboutExperience
+            setCanvasTexture={setCanvasTexture}
+            canvasTexture={canvasTexture}
+            glowImage={glowImage}
+            context={context}
+            canvas={canvasRef}
+            setCanvasCursor={setCanvasCursor}
+            canvasCursor={canvasCursor}
+            interactivePlane={interactivePlane}
+            raycaster={raycaster}
+            screenCursor={screenCursor}
+          />
+          <mesh visible={false} ref={interactivePlane} position={[7, 0, -5]}>
+            <planeGeometry args={[10, 10]} />
+            <meshBasicMaterial color={"red"} />
+          </mesh>
+        </ScrollControls>
+      </Canvas>
+    </>
   );
 };
 

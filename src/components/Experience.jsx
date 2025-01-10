@@ -89,8 +89,12 @@ export const Experience = () => {
       <ambientLight intensity={2} />
       <OrbitControls
         ref={ref}
+        // minAzimuthAngle={Math.PI / 2}
+        // maxAzimuthAngle={Math.PI}
+        // minPolarAngle={Math.PI / 100}
+        // maxPolarAngle={Math.PI - Math.PI / 2}
         // enableZoom={false}
-        // enablePan={false}
+        enablePan={false}
         // enableRotate={false}
       />
       <Room />
