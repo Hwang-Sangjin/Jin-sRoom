@@ -14,3 +14,8 @@ body {
 ::-webkit-scrollbar {
   display: none;
 }
+.jersey-10-regular {
+  font-family: "Jersey 10", serif;
+  font-weight: 400;
+  font-style: normal;
+}

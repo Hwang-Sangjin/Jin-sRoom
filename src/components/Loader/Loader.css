@@ -2,8 +2,8 @@
   position: absolute;
   top: 50%;
   width: 100%;
-  height: 2px;
-  background: #3fd679;
+  height: 5px;
+  background: #328653;
 
   transform: scaleX(0);
   transform-origin: top left;

@@ -71,7 +71,6 @@ export function DeskKeyboard(props) {
   const tl = useRef(gsap.timeline());
 
   useEffect(() => {
-    console.log(keyMap);
     if (Digit1.current) {
       if (keyMap.Digit1) {
         tl.current.to(
@@ -1316,8 +1315,6 @@ export function DeskKeyboard(props) {
         );
       }
     }
-
-    console.log(keyMap);
   }, [keyMap]);
 
   bakedTexture.flipY = false;
