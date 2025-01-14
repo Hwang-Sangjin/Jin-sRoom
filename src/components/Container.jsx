@@ -5,6 +5,8 @@ import { currentMusic } from "../recoil/currentMusic";
 import { playState } from "../recoil/playState";
 import { useEffect, useRef, useState } from "react";
 import musicAPI from "../music";
+import SoundAPI from "../sound";
+import { soundPlayIndex } from "../recoil/soundIndex";
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -28,13 +30,18 @@ export const getMusicTimeFormat = (time = 0) => {
 
 const Container = () => {
   const audioRef = useRef(null);
+  const soundRef = useRef(null);
   const [musicList, setMusicList] = useState(musicAPI);
+  const [soundList, setSoundList] = useState(SoundAPI);
   const [playMusic, setPlayMusic] = useRecoilState(currentMusic);
+  const [playSound, setPlaySound] = useState(null);
   const [play, setPlay] = useRecoilState(playState);
+  const [soundPlay, setSoundPlay] = useState(false);
   const [rangeValue, setRange] = useState(0);
   const [currentTime, setCurrentTime] = useState("00:00");
   const [duration, setDuration] = useState("00:00");
   const [playIndex, setPlayIndex] = useState(0);
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
   const [userPlay, setUserPlay] = useState(false);
   const [volume, setVolume] = useState(0.5);
 
@@ -56,6 +63,28 @@ const Container = () => {
   useEffect(() => {
     start();
   }, [playMusic]);
+
+  useEffect(() => {
+    if (soundRef && soundList && soundIndex !== -1) {
+      if (soundIndex === 2) {
+        soundRef.current.volume = 0.1;
+      } else {
+        soundRef.current.volume = 0.5;
+      }
+      setPlaySound(soundList[soundIndex]);
+      soundRef.current.play();
+    } else if (soundIndex === -1) {
+      if (soundRef) {
+        soundRef.current.pause();
+      }
+    }
+  }, [soundIndex]);
+
+  useEffect(() => {
+    if (soundRef && soundList && soundIndex !== -1) {
+      soundRef.current.play();
+    }
+  }, [playSound]);
 
   const start = () => {
     if (audioRef.current && userPlay) {
@@ -127,6 +156,12 @@ const Container = () => {
         onCanPlay={(e) => {
           e.currentTarget.volume = volume;
         }}
+      ></audio>
+      <audio
+        ref={soundRef}
+        preload="metadata"
+        src={soundIndex === -1 ? null : playSound}
+        onEnded={() => setSoundIndex(-1)}
       ></audio>
       <FiberContainer />
       <AudioPlayer

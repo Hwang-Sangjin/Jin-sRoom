@@ -5,12 +5,14 @@ import BaseTexture from "&/Room/DeskImac.jpg";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../../../recoil/sectionState";
 import { pointerState } from "../../../recoil/pointerState";
+import { soundPlayIndex } from "../../../recoil/soundIndex";
 
 export function DeskImac(props) {
   const { nodes, materials } = useGLTF("/DeskImac.glb");
   const bakedTexture = useTexture(BaseTexture);
   const [section, setSection] = useRecoilState(sectionState);
   const [pointer, setPointer] = useRecoilState(pointerState);
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
@@ -35,6 +37,7 @@ export function DeskImac(props) {
         rotation={[0.096, Math.PI / 2, 0]}
         scale={0.687}
         onClick={() => {
+          setSoundIndex(2);
           setSection(4);
         }}
       >

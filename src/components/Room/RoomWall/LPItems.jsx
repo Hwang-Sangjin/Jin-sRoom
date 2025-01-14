@@ -6,6 +6,7 @@ import musicAPI from "../../../music/index";
 import { useRecoilState } from "recoil";
 import { currentMusic } from "../../../recoil/currentMusic";
 import { pointerState } from "../../../recoil/pointerState";
+import { soundPlayIndex } from "../../../recoil/soundIndex";
 
 const LPPosition = [
   [-6.9, 3.13, -0.12],
@@ -22,6 +23,7 @@ export function LPItems(props) {
   const [playMusic, setPlayMusic] = useRecoilState(currentMusic);
   const [pointer, setPointer] = useRecoilState(pointerState);
   const bakedTexture = useTexture(BaseTexture);
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
@@ -63,7 +65,10 @@ export function LPItems(props) {
             key={index}
             position={LPPosition[index]}
             rotation={[Math.PI, Math.PI * 1.5, 0]}
-            onClick={(event) => onClickLP(e)}
+            onClick={(event) => {
+              onClickLP(e);
+              setSoundIndex(3);
+            }}
             onPointerOver={() => setPointer(true)}
             onPointerOut={() => setPointer(false)}
           >

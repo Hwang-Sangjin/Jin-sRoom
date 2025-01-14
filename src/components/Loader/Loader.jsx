@@ -5,12 +5,14 @@ import { useEffect } from "react";
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { useState } from "react";
-import doorOpenSound from "&/sound/doorOpen.wav";
+import { useRecoilState } from "recoil";
+import { soundPlayIndex } from "../../recoil/soundIndex";
 
 export function Loader() {
   const loadingRef = useRef();
   const { active, progress } = useProgress();
   const [start, setStart] = useState(true);
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
 
   useEffect(() => {
     console.log(progress);
@@ -33,6 +35,7 @@ export function Loader() {
         <div className="absolute text-center w-full h-full bg-orange-300 z-50">
           <button
             onClick={() => {
+              setSoundIndex(0);
               setStart(false);
             }}
             className="z-100 relative top-1/3 m-auto pointer jersey-10-regular text-6xl text-emerald-800"

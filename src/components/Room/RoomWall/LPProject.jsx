@@ -9,6 +9,7 @@ import { BiCaretRight } from "react-icons/bi";
 import BaseTexture from "&/Room/LPPlayer.jpg";
 import * as THREE from "three";
 import { pointerState } from "../../../recoil/pointerState";
+import { soundPlayIndex } from "../../../recoil/soundIndex";
 
 const LPProjectItem = () => {
   const [project, setProject] = useState(LPProject);
@@ -18,6 +19,7 @@ const LPProjectItem = () => {
   const [section, setSection] = useRecoilState(sectionState);
   const [prevSelected, setPrevSelected] = useState(null);
   const [pointer, setPointer] = useRecoilState(pointerState);
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
 
   useEffect(() => {
     let temp = [];
@@ -47,6 +49,7 @@ const LPProjectItem = () => {
 
   const LPAnimate = () => {
     if (LPRef && selectedIndex !== -1) {
+      setSoundIndex(4);
       const object = LPRef.current.children[selectedIndex];
 
       if (prevSelected) {

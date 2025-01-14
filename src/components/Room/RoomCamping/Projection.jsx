@@ -6,6 +6,7 @@ import { useFrame } from "@react-three/fiber";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../../../recoil/sectionState";
 import { pointerState } from "../../../recoil/pointerState";
+import { soundPlayIndex } from "../../../recoil/soundIndex";
 
 export function Projection(props) {
   const light = useRef();
@@ -13,6 +14,7 @@ export function Projection(props) {
   const [isOn, setIsOn] = useState(false);
   const [section, setSection] = useRecoilState(sectionState);
   const [pointer, setPointer] = useRecoilState(pointerState);
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
 
   const { nodes, materials } = useGLTF("/Projection.glb");
   const bakedTexture = useTexture(BaseTexture);
@@ -39,6 +41,14 @@ export function Projection(props) {
       setIsOn(false);
     }
   }, [section]);
+
+  useEffect(() => {
+    if (isOn) {
+      setSoundIndex(5);
+    } else {
+      setSoundIndex(-1);
+    }
+  }, [isOn]);
 
   return (
     <group {...props} dispose={null}>

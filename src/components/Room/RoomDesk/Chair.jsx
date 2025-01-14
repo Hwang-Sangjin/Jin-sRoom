@@ -5,6 +5,7 @@ import BaseTexture from "&/Room/Chair.jpg";
 import { useFrame } from "@react-three/fiber";
 import { useRecoilState } from "recoil";
 import { pointerState } from "../../../recoil/pointerState";
+import { soundPlayIndex } from "../../../recoil/soundIndex";
 
 export function Chair(props) {
   const { nodes, materials } = useGLTF("/Chair.glb");
@@ -13,6 +14,7 @@ export function Chair(props) {
   const [pointer, setPointer] = useRecoilState(pointerState);
   const bakedTexture = useTexture(BaseTexture);
   const mesh = useRef();
+  const [soundIndex, setSoundIndex] = useRecoilState(soundPlayIndex);
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
@@ -31,6 +33,15 @@ export function Chair(props) {
       mesh.current.rotation.y -= rotationSpeed;
     }
   });
+
+  useEffect(() => {
+    if (rotation === 0) {
+      setSoundIndex(-1);
+    } else {
+      setSoundIndex(1);
+    }
+  }, [rotation]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
