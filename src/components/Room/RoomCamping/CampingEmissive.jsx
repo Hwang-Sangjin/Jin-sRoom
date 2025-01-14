@@ -15,8 +15,8 @@ export function CampingEmissive(props) {
       >
         <MeshTransmissionMaterial
           backSide={true}
-          thickness={0.2}
-          roughness={0}
+          thickness={0.02}
+          roughness={0.01}
           transmission={1}
           ior={1.2}
           chromaticAberration={0.02}
@@ -30,8 +30,8 @@ export function CampingEmissive(props) {
       >
         <MeshTransmissionMaterial
           backSide={true}
-          thickness={0.2}
-          roughness={0}
+          thickness={0.02}
+          roughness={0.01}
           transmission={1}
           ior={1.2}
           chromaticAberration={0.02}
