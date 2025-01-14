@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/wallItems2.jpg";
 
@@ -12,6 +12,7 @@ export function WallItems2(props) {
 
   bakedTexture.minFilter = THREE.LinearFilter;
   bakedTexture.magFilter = THREE.NearestFilter;
+
   return (
     <group {...props} dispose={null}>
       <mesh

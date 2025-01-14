@@ -8,6 +8,7 @@ import { BiCaretLeft } from "react-icons/bi";
 import { BiCaretRight } from "react-icons/bi";
 import BaseTexture from "&/Room/LPPlayer.jpg";
 import * as THREE from "three";
+import { pointerState } from "../../../recoil/pointerState";
 
 const LPProjectItem = () => {
   const [project, setProject] = useState(LPProject);
@@ -16,6 +17,7 @@ const LPProjectItem = () => {
   const LPRef = useRef();
   const [section, setSection] = useRecoilState(sectionState);
   const [prevSelected, setPrevSelected] = useState(null);
+  const [pointer, setPointer] = useRecoilState(pointerState);
 
   useEffect(() => {
     let temp = [];
@@ -38,6 +40,10 @@ const LPProjectItem = () => {
       setSelectedIndex(-1);
     }
   }, [section]);
+
+  useEffect(() => {
+    document.body.style.cursor = pointer ? "pointer" : "auto";
+  }, [pointer]);
 
   const LPAnimate = () => {
     if (LPRef && selectedIndex !== -1) {
@@ -95,7 +101,14 @@ const LPProjectItem = () => {
 
   return (
     <group>
-      <group ref={LPRef}>
+      <group
+        ref={LPRef}
+        onPointerOver={() => setPointer(true)}
+        onPointerOut={() => setPointer(false)}
+        onClick={() => {
+          setSection(1);
+        }}
+      >
         {project.map((e, index) => {
           const bakedTexture = useTexture(e.image);
 

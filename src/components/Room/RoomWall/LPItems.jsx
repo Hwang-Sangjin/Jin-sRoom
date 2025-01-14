@@ -5,6 +5,7 @@ import BaseTexture from "&/Room/LPItems.jpg";
 import musicAPI from "../../../music/index";
 import { useRecoilState } from "recoil";
 import { currentMusic } from "../../../recoil/currentMusic";
+import { pointerState } from "../../../recoil/pointerState";
 
 const LPPosition = [
   [-6.9, 3.13, -0.12],
@@ -19,6 +20,7 @@ export function LPItems(props) {
   const { nodes, materials } = useGLTF("/LPItems.glb");
   const [musicList, setMusicList] = useState(musicAPI);
   const [playMusic, setPlayMusic] = useRecoilState(currentMusic);
+  const [pointer, setPointer] = useRecoilState(pointerState);
   const bakedTexture = useTexture(BaseTexture);
 
   bakedTexture.flipY = false;
@@ -30,6 +32,10 @@ export function LPItems(props) {
   const onClickLP = (music) => {
     setPlayMusic(music);
   };
+
+  useEffect(() => {
+    document.body.style.cursor = pointer ? "pointer" : "auto";
+  }, [pointer]);
 
   return (
     <group {...props} dispose={null}>
@@ -58,6 +64,8 @@ export function LPItems(props) {
             position={LPPosition[index]}
             rotation={[Math.PI, Math.PI * 1.5, 0]}
             onClick={(event) => onClickLP(e)}
+            onPointerOver={() => setPointer(true)}
+            onPointerOut={() => setPointer(false)}
           >
             <planeGeometry attach="geometry" args={[0.8, 0.8]} />
             <meshBasicMaterial

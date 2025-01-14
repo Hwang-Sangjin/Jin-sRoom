@@ -1,10 +1,13 @@
 import * as THREE from "three";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useGLTF, useTexture } from "@react-three/drei";
 import bookTexture from "&/Book.jpg";
+import { useRecoilState } from "recoil";
+import { pointerState } from "../../../recoil/pointerState";
 
 export function WallBook(props) {
   const { nodes, materials } = useGLTF("/WallBook.glb");
+  const [pointer, setPointer] = useRecoilState(pointerState);
 
   const texture = useTexture(bookTexture);
 
@@ -17,6 +20,10 @@ export function WallBook(props) {
     window.open(url, "_blank"); // Opens the link in a new tab
   };
 
+  useEffect(() => {
+    document.body.style.cursor = pointer ? "pointer" : "auto";
+  }, [pointer]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
@@ -27,6 +34,8 @@ export function WallBook(props) {
         position={[-6.719, 2.669, -4.242]}
         rotation={[-Math.PI / 2, 1.445, Math.PI / 2]}
         scale={0.303}
+        onPointerOver={() => setPointer(true)}
+        onPointerOut={() => setPointer(false)}
         onClick={() => handleClick("https://velog.io/@magpies1221/Book-1")}
       >
         <meshBasicMaterial color={"#928071"} />

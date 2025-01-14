@@ -5,12 +5,14 @@ import BaseTexture from "&/Room/Projection.jpg";
 import { useFrame } from "@react-three/fiber";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../../../recoil/sectionState";
+import { pointerState } from "../../../recoil/pointerState";
 
 export function Projection(props) {
   const light = useRef();
   const screen = useRef();
   const [isOn, setIsOn] = useState(false);
   const [section, setSection] = useRecoilState(sectionState);
+  const [pointer, setPointer] = useRecoilState(pointerState);
 
   const { nodes, materials } = useGLTF("/Projection.glb");
   const bakedTexture = useTexture(BaseTexture);
@@ -27,6 +29,10 @@ export function Projection(props) {
   }, []);
 
   useEffect(() => {
+    document.body.style.cursor = pointer ? "pointer" : "auto";
+  }, [pointer]);
+
+  useEffect(() => {
     if (section === 2) {
       setIsOn(true);
     } else {
@@ -37,6 +43,8 @@ export function Projection(props) {
   return (
     <group {...props} dispose={null}>
       <mesh
+        onPointerOver={() => setPointer(true)}
+        onPointerOut={() => setPointer(false)}
         castShadow
         receiveShadow
         geometry={nodes.Cube149.geometry}

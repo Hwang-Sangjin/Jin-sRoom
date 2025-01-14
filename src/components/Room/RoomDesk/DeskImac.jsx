@@ -4,11 +4,13 @@ import { Html, useGLTF, useTexture } from "@react-three/drei";
 import BaseTexture from "&/Room/DeskImac.jpg";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../../../recoil/sectionState";
+import { pointerState } from "../../../recoil/pointerState";
 
 export function DeskImac(props) {
   const { nodes, materials } = useGLTF("/DeskImac.glb");
   const bakedTexture = useTexture(BaseTexture);
   const [section, setSection] = useRecoilState(sectionState);
+  const [pointer, setPointer] = useRecoilState(pointerState);
 
   bakedTexture.flipY = false;
   bakedTexture.colorSpace = THREE.SRGBColorSpace;
@@ -16,9 +18,15 @@ export function DeskImac(props) {
   bakedTexture.minFilter = THREE.LinearFilter;
   bakedTexture.magFilter = THREE.NearestFilter;
 
+  useEffect(() => {
+    document.body.style.cursor = pointer ? "pointer" : "auto";
+  }, [pointer]);
+
   return (
     <group {...props} dispose={null}>
       <mesh
+        onPointerOver={() => setPointer(true)}
+        onPointerOut={() => setPointer(false)}
         castShadow
         receiveShadow
         geometry={nodes.Cube189.geometry}

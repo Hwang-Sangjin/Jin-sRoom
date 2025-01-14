@@ -5,6 +5,7 @@ import BaseTexture from "&/Room/Partition.jpg";
 import CardApi from "../../../Card";
 import { useRecoilState } from "recoil";
 import { sectionState } from "../../../recoil/sectionState";
+import { pointerState } from "../../../recoil/pointerState";
 
 const CardPosition = [
   [-5.05, 3.98, 1.86],
@@ -21,6 +22,7 @@ export function Partition(props) {
   const [cardList, setCardList] = useState(CardApi);
   const [randomValueArr, setRandomValueArr] = useState([]);
   const [section, setSection] = useRecoilState(sectionState);
+  const [pointer, setPointer] = useRecoilState(pointerState);
 
   const bakedTexture = useTexture(BaseTexture);
 
@@ -42,8 +44,17 @@ export function Partition(props) {
     setRandomValueArr(temp);
   }, []);
 
+  useEffect(() => {
+    document.body.style.cursor = pointer ? "pointer" : "auto";
+  }, [pointer]);
+
   return (
-    <group {...props} dispose={null}>
+    <group
+      {...props}
+      dispose={null}
+      onPointerOver={() => setPointer(true)}
+      onPointerOut={() => setPointer(false)}
+    >
       <mesh
         raycast={meshBounds}
         castShadow
