@@ -45,7 +45,7 @@ const LPProjectItem = () => {
 
       if (prevSelected) {
         gsap.timeline().to(prevSelected.position, {
-          duration: 2,
+          duration: 1,
           repeat: 0,
           x: prevSelected.position.x,
           y: 0,
@@ -55,7 +55,7 @@ const LPProjectItem = () => {
       }
 
       gsap.timeline().to(object.position, {
-        duration: 2,
+        duration: 1,
         repeat: 0,
         x: object.position.x,
         y: 0.7,
@@ -67,7 +67,7 @@ const LPProjectItem = () => {
     }
     if (prevSelected && selectedIndex === -1) {
       gsap.timeline().to(prevSelected.position, {
-        duration: 2,
+        duration: 1,
         repeat: 0,
         x: prevSelected.position.x,
         y: 0,
