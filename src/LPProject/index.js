@@ -18,6 +18,12 @@ import GlassPortalImg from "./3DGlassPortal.png";
 
 const LPProject = [
   {
+    title: "3DGlassPortal",
+    image: GlassPortalImg,
+    url: "https://3-d-glass-portal.vercel.app/",
+    stack: ["React", "GLSL", "Blender"],
+  },
+  {
     title: "Ghibli",
     image: GhibliImg,
     url: "https://ghibli-seven.vercel.app/",
@@ -113,12 +119,6 @@ const LPProject = [
     image: PortalImg,
     url: "https://61-portal-scene-with-r3f-final.vercel.app/",
     stack: ["Three.js", "GLSL", "Blender"],
-  },
-  {
-    title: "3DGlassPortal",
-    image: GlassPortalImg,
-    url: "https://3-d-glass-portal.vercel.app/",
-    stack: ["React", "GLSL", "Blender"],
   },
 ];
 
