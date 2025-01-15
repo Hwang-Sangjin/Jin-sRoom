@@ -14,6 +14,7 @@ import WobblySphereImg from "./WobblySphere.png";
 import SlicedModelImg from "./SlicedModel.png";
 import ProceuralTerrainImg from "./ProceuralTerrain.png";
 import PortalImg from "./Portal.png";
+import GlassPortalImg from "./3DGlassPortal.png";
 
 const LPProject = [
   {
@@ -112,6 +113,12 @@ const LPProject = [
     image: PortalImg,
     url: "https://61-portal-scene-with-r3f-final.vercel.app/",
     stack: ["Three.js", "GLSL", "Blender"],
+  },
+  {
+    title: "3DGlassPortal",
+    image: GlassPortalImg,
+    url: "https://3-d-glass-portal.vercel.app/",
+    stack: ["React", "GLSL", "Blender"],
   },
 ];
 
