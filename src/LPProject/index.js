@@ -15,8 +15,15 @@ import SlicedModelImg from "./SlicedModel.png";
 import ProceuralTerrainImg from "./ProceuralTerrain.png";
 import PortalImg from "./Portal.png";
 import GlassPortalImg from "./3DGlassPortal.png";
+import WaterColorMaterialImg from "./WaterColorMaterial.png";
 
 const LPProject = [
+  {
+    title: "Water Color Material",
+    image: WaterColorMaterialImg,
+    url: "https://water-color-one.vercel.app/",
+    stack: ["React", "GLSL"],
+  },
   {
     title: "3DGlassPortal",
     image: GlassPortalImg,
