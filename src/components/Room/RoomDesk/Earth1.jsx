@@ -14,7 +14,16 @@ export function Earth1(props) {
         rotation={[Math.PI, 1.044, -2.731]}
         scale={0.427}
       >
-        <meshBasicMaterial color={"#146462"} />
+        <meshPhysicalMaterial
+          specularColor={"#000000"}
+          reflectivity={1}
+          ior={1.5}
+          metalness={0.3}
+          roughness={0}
+          emissive={"#000000"}
+          color={"#146462"}
+          clearcoat={0}
+        />
       </mesh>
     </group>
   );

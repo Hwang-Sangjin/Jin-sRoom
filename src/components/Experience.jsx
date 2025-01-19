@@ -86,7 +86,7 @@ export const Experience = () => {
   return (
     <>
       <Environment preset="studio" />
-      <ambientLight intensity={2} />
+      <ambientLight intensity={5} />
       <OrbitControls
         ref={ref}
         // minAzimuthAngle={Math.PI / 2}
