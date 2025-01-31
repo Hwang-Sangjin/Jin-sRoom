@@ -16,8 +16,15 @@ import ProceuralTerrainImg from "./ProceuralTerrain.png";
 import PortalImg from "./Portal.png";
 import GlassPortalImg from "./3DGlassPortal.png";
 import WaterColorMaterialImg from "./WaterColorMaterial.png";
+import TheBookImg from "./TheBook.png";
 
 const LPProject = [
+  {
+    title: "The Book",
+    image: TheBookImg,
+    url: "https://the-book-omega.vercel.app/",
+    stack: ["React", "Blender"],
+  },
   {
     title: "Water Color Material",
     image: WaterColorMaterialImg,
