@@ -17,8 +17,15 @@ import PortalImg from "./Portal.png";
 import GlassPortalImg from "./3DGlassPortal.png";
 import WaterColorMaterialImg from "./WaterColorMaterial.png";
 import TheBookImg from "./TheBook.png";
+import ChillguyImg from "./Chillguy.png";
 
 const LPProject = [
+  {
+    title: "Chill Guy",
+    image: ChillguyImg,
+    url: "https://chill-guy-tau.vercel.app/",
+    stack: ["React", "Blender"],
+  },
   {
     title: "The Book",
     image: TheBookImg,
